@@ -50,18 +50,23 @@ const HomeScreen = () => {
     },
     {
       id: 2,
-      title: 'Beef Steak',
-      image: require('../../assets/popular.png'),
+      title: 'Salad',
+      image: require('../../assets/image-2.jpg'),
     },
     {
       id: 3,
-      title: 'Beef Steak',
-      image: require('../../assets/popular.png'),
+      title: 'Pancake',
+      image: require('../../assets/image-3.jpg'),
     },
     {
       id: 4,
-      title: 'Beef Steak',
-      image: require('../../assets/popular.png'),
+      title: 'spaghetti',
+      image: require('../../assets/image-1.png'),
+    },
+    {
+      id: 5,
+      title: 'Pizza',
+      image: require('../../assets/image-4.jpg'),
     },
   ];
 

@@ -1,8 +1,11 @@
 /* eslint-disable prettier/prettier */
-/* eslint-disable no-alert */
+/* eslint-disable no-unused-vars */
+/* eslint-disable prettier/prettier */
 // src/screens/authentication/Login/Login.js
 import React, {useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
+import {useDispatch, useSelector} from 'react-redux';
+import {loginAction} from '../../storages/actions/authLogin';
 import {
   View,
   Text,
@@ -11,44 +14,18 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
-import SweetAlert from 'react-native-sweet-alert';
 
 const Login = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleSignUpPress = () => {
     navigation.navigate('Register');
   };
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const handleLogin = async () => {
-    try {
-      const loginUrl = 'https://cyan-jittery-cygnet.cyclic.app/auth/login';
-      const response = await axios.post(loginUrl, {
-        email: email,
-        password: password,
-      });
-
-      const accessToken = response.data.data.token;
-      await AsyncStorage.setItem('accessToken', accessToken);
-
-      SweetAlert.showAlertWithOptions({
-        title: 'Login Berhasil!',
-        subTitle: 'Anda berhasil masuk.',
-        confirmButtonTitle: 'OK',
-        confirmButtonColor: '#0000ff',
-        otherButtonTitle: 'Cancel',
-        otherButtonColor: '#ff0000',
-        style: 'success',
-        cancellable: true,
-      });
-
-      navigation.navigate('Profile');
-    } catch (error) {
-      console.error('Login gagal:', error);
-    }
+    dispatch(loginAction(email, password, navigation));
   };
 
   return (
@@ -74,7 +51,7 @@ const Login = () => {
           style={styles.input}
           placeholder="Masukkan username"
           value={email}
-          onChangeText={text => setEmail(text)}
+          onChangeText={value => setEmail(value)}
         />
       </View>
       <View style={styles.inputContainer}>
@@ -83,7 +60,7 @@ const Login = () => {
           style={styles.input}
           placeholder="Masukkan password"
           value={password}
-          onChangeText={text => setPassword(text)}
+          onChangeText={value => setPassword(value)}
         />
       </View>
       <TouchableOpacity style={styles.forgotPasswordContainer}>

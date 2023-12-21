@@ -61,7 +61,7 @@ function HomeTabs() {
   );
 }
 
-function App() {
+function Main() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -82,4 +82,4 @@ function App() {
   );
 }
 
-export default App;
+export default Main;

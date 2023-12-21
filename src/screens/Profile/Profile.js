@@ -4,21 +4,37 @@
 
 import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {useSelector, useDispatch} from 'react-redux';
+import {logoutAction} from '../../storages/actions/authLogin';
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const isAuthenticated = useSelector(state => state.auth.isSuccess);
+  const userProfile = useSelector(state => state.auth.data);
 
   const handleLoginPress = () => {
-    navigation.navigate('Login');
+    if (isAuthenticated) {
+      dispatch(logoutAction(navigation));
+    } else {
+      // Navigate to the login screen
+      navigation.navigate('Login');
+    }
   };
+
   const handleMyRecipePress = () => {
     navigation.navigate('MyRecipe');
   };
   return (
     <View style={styles.wrapper_detail}>
       <View style={styles.profile}>
-        <Image source={require('../../assets/pp.png')} />
-        <Text style={styles.name}>Mareta Lopeda</Text>
+        <Image
+          source={{uri: userProfile?.photo_user}}
+          style={styles.profileImage}
+        />
+        <Text style={styles.name}>
+          {userProfile && userProfile.username ? userProfile.username : 'user'}
+        </Text>
       </View>
       <View style={styles.wrapper_edit}>
         <View style={styles.edit}>
@@ -43,12 +59,10 @@ const ProfileScreen = () => {
           <Text style={styles.title_saved}>Liked Recipe</Text>
           <Image source={require('../../assets/ic-chevron.png')} />
         </View>
-        <TouchableOpacity style={styles.edit} onPress={handleLoginPress}>
-          <Image
-            source={require('../../assets/icons8-login-50.png')}
-            style={styles.img_login}
-          />
-          <Text style={styles.title}>Login</Text>
+        <TouchableOpacity style={styles.loginButton} onPress={handleLoginPress}>
+          <Text style={styles.buttonText}>
+            {isAuthenticated ? 'Logout' : 'Login'}
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -64,6 +78,11 @@ const styles = StyleSheet.create({
     height: 300,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  profileImage: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
   },
   name: {
     color: '#FFFFFF',
@@ -95,9 +114,15 @@ const styles = StyleSheet.create({
     paddingLeft: 5,
   },
 
-  img_login: {
-    width: 30,
-    height: 30,
+  loginButton: {
+    backgroundColor: '#3498db',
+    padding: 15,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  buttonText: {
+    color: '#fff',
   },
 });
 

@@ -15,13 +15,13 @@ import {
 import axios from 'axios';
 import SweetAlert from 'react-native-sweet-alert';
 import {useNavigation} from '@react-navigation/native';
-
+import {useSelector} from 'react-redux';
 const MyRecipesScreen = () => {
   const navigation = useNavigation();
   const [myRecipes, setMyRecipes] = useState([]);
   const [id, setSelectedRecipeId] = useState(null);
-  let token =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiOTk2ZDVmODMtNTZhZC00NGU3LWJkNmUtYmM0NmIxMzRjZDY4IiwiZW1haWwiOiJncmFjaWFAZXhhbXBsZS5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRFeUFsS1h1Z0owV1FSRXFJNUtzRWJlZXh4NjdkNXpUbmpVbFR5UTQuNEYyRFhXemhVWUd6TyIsInVzZXJuYW1lIjoiU2hhbmlhIiwicGhvdG9fdXNlciI6Imh0dHBzOi8vcmVzLmNsb3VkaW5hcnkuY29tL2RqajZ2eno2dy9pbWFnZS91cGxvYWQvdjE2OTk0NTU3OTgvcGhvdG9fdXNlcnMvanU1dHFqZXN3cWFwNDJ5Z3Z1Y2EucG5nIiwiaWF0IjoxNzAyNTUxMTY5fQ.OJYHOmtCSl9AszTRrcAyseKTBC5jU6YwkD00pqGzLJg';
+  const auth = useSelector(state => state.auth);
+  let token = auth?.data?.token;
 
   useEffect(() => {
     const fetchMyRecipes = async () => {

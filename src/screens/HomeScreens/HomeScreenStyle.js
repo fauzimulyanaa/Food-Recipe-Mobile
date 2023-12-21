@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
   cardRecipesPopular: {
     width: 150,
     height: 200,
-    marginRight: 10,
+    marginRight: 14,
     borderRadius: 10,
     overflow: 'hidden',
     marginTop: 20,

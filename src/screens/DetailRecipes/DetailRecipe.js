@@ -1,49 +1,39 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable no-unused-vars */
+/* eslint-disable prettier/prettier */
+/* eslint-disable react-native/no-inline-styles */
+/* eslint-disable prettier/prettier */
 
 import React, {useState, useEffect} from 'react';
 import {View, Text, Image, ActivityIndicator, StyleSheet} from 'react-native';
-import axios from 'axios';
+import {useDispatch, useSelector} from 'react-redux';
+import {getRecipeDetail} from '../../storages/actions/GetDetailRecipe';
 import {useRoute} from '@react-navigation/native';
+import SweetAlert from 'react-native-sweet-alert';
 
 const RecipeDetailScreen = () => {
   const route = useRoute();
   const {recipeId} = route.params;
-  const [recipe, setRecipe] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const hardcodedAccessToken =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiYmJkYTQyYTgtNjYyYi00M2MwLTg0ZWUtYTJiNzIxMDllNTU2IiwiZW1haWwiOiJkYXlhdEBleGFtcGxlLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJGx2VEI1RGxrM0dkQ3UzZW1ZTWVWS2VVQmZKU0oxUURINXp6ZDFVS3BKVUtmQ2VUTFhqajFxIiwidXNlcm5hbWUiOiJEYXlhdCBCIiwicGhvdG9fdXNlciI6bnVsbCwiaWF0IjoxNjk5NTg0NDcyfQ.r9LkPqIx4IyIIe3QoI_ZRYXMt2oSGggSqUR_quwSNTU';
+  const dispatch = useDispatch();
+  const {recipe, isLoading, isError} = useSelector(
+    state => state.getDetailRecipe,
+  );
 
   useEffect(() => {
-    const fetchRecipeById = async () => {
-      try {
-        const response = await axios.get(
-          `https://cyan-jittery-cygnet.cyclic.app/recipe/${recipeId}`,
-          {
-            headers: {
-              Authorization: `Bearer ${hardcodedAccessToken}`,
-            },
-          },
-        );
-        setRecipe(response.data.data);
-        console.log(response.data.data);
-      } catch (error) {
-        console.error('Error fetching recipe details:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
+    dispatch(getRecipeDetail(recipeId));
+  }, [dispatch, recipeId]);
 
-    fetchRecipeById();
-  }, [recipeId]);
-
-  if (loading) {
-    return <ActivityIndicator size="large" color="#0000ff" />;
+  if (isLoading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
   }
 
   if (!recipe) {
     return <Text>Error fetching recipe details</Text>;
   }
-
   return (
     <View style={styles.wrapper_detail}>
       <Image
@@ -62,6 +52,11 @@ const RecipeDetailScreen = () => {
   );
 };
 const styles = StyleSheet.create({
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   wrapper_detail: {
     position: 'relative',
   },

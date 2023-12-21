@@ -72,12 +72,14 @@ const EditRecipeScreen = ({route, navigation}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>Edit Recipe</Text>
+      <Text>Title</Text>
       <TextInput
         style={styles.input}
         value={recipeData.title}
         onChangeText={value => setRecipeData({...recipeData, title: value})}
         placeholder="Title"
       />
+      <Text>Description</Text>
       <TextInput
         style={[styles.input, styles.multilineInput]}
         value={recipeData.description}
@@ -87,6 +89,7 @@ const EditRecipeScreen = ({route, navigation}) => {
         placeholder="Description"
         multiline
       />
+      <Text>Instructions</Text>
       <TextInput
         style={[styles.input, styles.multilineInput]}
         value={recipeData.instructions}
@@ -96,6 +99,7 @@ const EditRecipeScreen = ({route, navigation}) => {
         placeholder="Instructions"
         multiline
       />
+      <Text>Ingredients</Text>
       <TextInput
         style={[styles.input, styles.multilineInput]}
         value={recipeData.ingredients}

@@ -9,33 +9,18 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import axios from 'axios';
+import {useDispatch, useSelector} from 'react-redux';
+import {getAllMenus} from '../../storages/actions/GetRecipes';
 
-const PopularScreens = ({navigation}) => {
-  const [popularRecipes, setPopularRecipes] = useState([]);
-  const hardcodedAccessToken =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiOTk2ZDVmODMtNTZhZC00NGU3LWJkNmUtYmM0NmIxMzRjZDY4IiwiZW1haWwiOiJncmFjaWFAZXhhbXBsZS5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRFeUFsS1h1Z0owV1FSRXFJNUtzRWJlZXh4NjdkNXpUbmpVbFR5UTQuNEYyRFhXemhVWUd6TyIsInVzZXJuYW1lIjoiU2hhbmlhIiwicGhvdG9fdXNlciI6Imh0dHBzOi8vcmVzLmNsb3VkaW5hcnkuY29tL2RqajZ2eno2dy9pbWFnZS91cGxvYWQvdjE2OTk0NTU3OTgvcGhvdG9fdXNlcnMvanU1dHFqZXN3cWFwNDJ5Z3Z1Y2EucG5nIiwiaWF0IjoxNzAyNTUxMTY5fQ.OJYHOmtCSl9AszTRrcAyseKTBC5jU6YwkD00pqGzLJg';
+const PopularScreens = () => {
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
+  const popularRecipes = useSelector(state => state.GetRecipes.data);
+  console.log(popularRecipes);
 
   useEffect(() => {
-    const fetchPopularRecipes = async () => {
-      try {
-        const response = await axios.get(
-          'https://cyan-jittery-cygnet.cyclic.app/recipe',
-          {
-            headers: {
-              Authorization: `Bearer ${hardcodedAccessToken}`,
-            },
-          },
-        );
-        setPopularRecipes(response.data.data);
-        console.log(response.data.data);
-      } catch (error) {
-        console.error('Error fetching popular recipes:', error);
-      }
-    };
-
-    fetchPopularRecipes();
-  }, []);
+    dispatch(getAllMenus());
+  }, [dispatch]);
   const navigateToRecipeDetail = recipeId => {
     navigation.navigate('DetailRecipe', {recipeId});
   };
