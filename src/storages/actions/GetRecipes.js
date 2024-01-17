@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import axios from 'axios';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
-const base_url = 'https://cyan-jittery-cygnet.cyclic.app';
+const base_url = 'https://easy-gray-alligator-tutu.cyclic.app';
 export const getAllMenus = () => async (dispatch, getState) => {
   try {
     dispatch({type: 'GET_MENU_PENDING'});

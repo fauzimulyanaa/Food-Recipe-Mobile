@@ -30,9 +30,10 @@ const Login = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.wrapper_image}>
+      <Text>Tes</Text>
+      {/* <View style={styles.wrapper_image}>
         <Image
-          source={require('../../assets/image-auth.png')}
+          source={require('../../assets/imagePopular-1.png')}
           style={styles.image_auth}
         />
       </View>
@@ -76,7 +77,7 @@ const Login = () => {
         <TouchableOpacity onPress={handleSignUpPress}>
           <Text style={styles.signUpText}>Sign up</Text>
         </TouchableOpacity>
-      </View>
+      </View> */}
     </View>
   );
 };

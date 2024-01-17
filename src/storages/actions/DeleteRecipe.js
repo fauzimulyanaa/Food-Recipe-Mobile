@@ -7,7 +7,7 @@ export const deleteRecipe = recipeId => async (dispatch, getState) => {
 
   try {
     await axios.delete(
-      `https://cyan-jittery-cygnet.cyclic.app/recipe/delete-recipe/${recipeId}`,
+      `https://easy-gray-alligator-tutu.cyclic.app/recipe/delete-recipe/${recipeId}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

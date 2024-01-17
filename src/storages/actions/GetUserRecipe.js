@@ -8,7 +8,7 @@ export const getUserRecipes = () => async (dispatch, getState) => {
 
     if (userId) {
       const response = await axios.get(
-        'https://cyan-jittery-cygnet.cyclic.app/recipe/my-recipe',
+        'https://easy-gray-alligator-tutu.cyclic.app/recipe/my-recipe',
         {
           headers: {
             Authorization: `Bearer ${token}`,

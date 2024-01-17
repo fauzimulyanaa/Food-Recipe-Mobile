@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 const initialState = {
-  user: {},
+  data: null,
   isLoading: false,
   isSuccess: false,
   isError: false,
@@ -21,7 +21,7 @@ const profileReducer = (state = initialState, action) => {
     case 'UPDATE_PROFILE_SUCCESS':
       return {
         ...state,
-        user: action.payload,
+        data: action.payload,
         isLoading: false,
         isSuccess: true,
         isError: false,
